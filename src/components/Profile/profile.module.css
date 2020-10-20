@@ -1,0 +1,17 @@
+.posts{
+    width: 100%;
+}
+h3{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 25px;
+}
+.hashtags{
+    display: block;
+    margin-top: 20px;
+    border-bottom: 1px solid #fff;
+}
+.hashtags span{
+    display: inline-block;
+    margin-right: 10px;
+}
