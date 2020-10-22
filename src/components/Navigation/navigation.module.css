@@ -1,13 +1,14 @@
 .navigation{
   grid-area: n;
-  background-color: beige;
+  background-color: rgb(29, 69, 77);
   padding: 20px;
 }
 li a{
-  color: black;
+  color: #fff;
   text-decoration: none;
+  opacity: 0.5;
 }
 .active {
-  color: red;
+  opacity: 1;
   transition: 0.3s;
 }
