@@ -17,7 +17,9 @@ function App() {
       <Navigation/>
       <div className = "app-wrapper-content">
         <Route path="/profile" render={
-            () => (<Profile postData={state.profilePage.postData}/>)
+            () => (<Profile 
+              postData={state.profilePage.postData}
+              dataLinks={state.settingsOfLinks.profile}/>)
         }/>
         <Route path="/messages" render={
             () => (<Dialogs 
@@ -27,8 +29,8 @@ function App() {
         }/>
         <Route path="/friends" render={
             () => (<Friends 
-            friendsData={state.slidebar.friends}
-            dataLinks={state.settingsOfLinks.friends}/>)
+              friendsData={state.slidebar.friends}
+              dataLinks={state.settingsOfLinks.friends}/>)
         }/>
       </div>
     </div>

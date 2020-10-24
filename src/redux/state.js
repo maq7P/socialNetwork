@@ -1,8 +1,20 @@
 let state = {
     profilePage: {
         postData: [
-            {id: 1, title: 'Первый',text: 'Это мой первый пост', like: 10, comments: 2, hashtags: ['#firstPost']},
-            {id: 2, title: 'Классное',text: 'Классная погодка, как вам, ребят?', like: 10, comments: 2, hashtags: ['#firstPost']},
+            {
+                id: 1,
+                title: 'Первый',
+                text: 'Это мой первый пост',
+                like: 10,
+                comments: 2,
+                hashtags: ['#firstPost'],
+                postImg: 'https://cdn1.img.sputniknewslv.com/images/1318/02/13180226.jpg',
+                whoName: 'Max',
+                whoImg: 'https://sun9-64.userapi.com/gN79EhxURENQ4f55w6rPGIFdl0Hr_Q4X0BXS_Q/lJZxeSC7TGc.jpg',
+                time: '10 минут назад'
+            },
+            {id: 2, title: 'Классное',text: 'Классная погодка, как вам, ребят?', like: 10, comments: 2, hashtags: ['#firstPost', '#trr'], whoName: 'Yulia', whoImg: 'https://sun9-20.userapi.com/_xRHT4Cb7wdm028L5F7Ua7eTc7sFG4Coqnz40Q/Y9wkbsqGFgU.jpg', time: '15 минут назад'},
+            {id: 2,text: 'Per jdsf iewji ewji dwqjijdaasd wqeqijheqwhieqiheqw dasa.', like: 10, comments: 2, hashtags: ['#like', '#ferwe'], whoName: 'Yulia', whoImg: 'https://sun9-20.userapi.com/_xRHT4Cb7wdm028L5F7Ua7eTc7sFG4Coqnz40Q/Y9wkbsqGFgU.jpg', time: '15 минут назад'},
         ]
     },
     messagesPage: {
@@ -48,6 +60,30 @@ let state = {
             {to:'/messages/chats', text:'Chats', count: 2},
             {to:'/messages/status', text:'Status', count: 2},
         ],
+        profile: [
+            {to:'/profile/overview', text:'OVERVIEW'},
+            {to:'/profile/posts', text:'POSTS', count: 2},
+            {to:'/profile/friends', text:'FRIENDS', count: 20},
+            {to:'/profile/following', text:'FOLLOWING', count: 7},
+            {to:'/profile/music', text:'MUSIC', count: 14},
+        ],
     }
+
+
+}
+export const addPost = (title=null, text, postImg=null, whoName, whoImg, time) => {
+    const newObj = {
+        id: 1,
+        title,
+        text,
+        like: 0,
+        comments: 0,
+        hashtags: ['#firstPost'],
+        postImg,
+        whoName,
+        whoImg,
+        time,
+    }
+    state.profilePage.postData.push(newObj)
 }
 export default state;

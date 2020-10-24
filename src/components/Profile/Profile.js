@@ -1,13 +1,23 @@
 import React from 'react'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
-import MyPosts from './MyPosts/MyPosts'
 import style from './profile.module.css'
+import { Route } from 'react-router-dom';
+import MyPosts from './MyPosts/MyPosts';
+import ChangeHeader from '../ChangeHeader/ChangeHeader';
 
-const Profile = ({postData}) => (
-    <main>
-        <ProfileInfo/>
-        <div className={style.posts}>
-            <MyPosts postData={postData}/>
+const Profile = ({postData, dataLinks}) => (
+    <main >
+        <ProfileInfo 
+            postData={postData}/>
+        <div className={style.containerProfile}>
+            <ChangeHeader dataLinks={dataLinks}/>
+            <Route path="/profile/posts" render={() => (
+                <div className={style.posts}>
+                    <MyPosts 
+                        postData={postData}
+                    />
+                </div>
+            )}/>
         </div>
     </main>
 )

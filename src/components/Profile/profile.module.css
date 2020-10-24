@@ -1,3 +1,7 @@
+.containerProfile{
+    padding: 0 30px;
+    position: relative;
+}
 .posts{
     width: 100%;
 }

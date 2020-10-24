@@ -9,19 +9,19 @@ const Navigation = () => (
           <NavLink to="/profile" activeClassName={style.active}>Profile</NavLink>
         </li>
         <li>
-          <NavLink to="/messages" activeClassName={style.active}>Messages</NavLink>
+          <NavLink to="/messages" activeClassName={style.active}>My messages</NavLink>
         </li>
         <li>
           <NavLink to="/news" activeClassName={style.active}>News</NavLink>
         </li>
         <li>
-          <NavLink to="/music" activeClassName={style.active}>Music</NavLink>
+          <NavLink to="/music" activeClassName={style.active}>My music</NavLink>
         </li>
         <li>
           <NavLink to="/settings" activeClassName={style.active}>Settings</NavLink>
         </li>
         <li>
-          <NavLink to="/friends" activeClassName={style.active}>Friends</NavLink>
+          <NavLink to="/friends" activeClassName={style.active}>My friends</NavLink>
         </li>
       </ul>
     </nav>

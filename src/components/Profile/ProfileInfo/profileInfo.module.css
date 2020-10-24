@@ -1,9 +1,28 @@
 .bg {
     width: 100%;
+    position: relative;
 }
 
 .bg img {
     width: 100%;
     max-height: 300px;
     object-fit: cover;
+}
+.avatarBlock{
+    position: absolute;
+    color: #fff;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    align-items: center;
+}
+.avatarBlock img{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.info{
+    background-color: rgba(0, 0, 0, .3);
+    width: 400px;
+    padding: 20px;
 }
