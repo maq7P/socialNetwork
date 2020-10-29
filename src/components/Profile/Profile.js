@@ -5,7 +5,7 @@ import { Route } from 'react-router-dom';
 import MyPosts from './MyPosts/MyPosts';
 import ChangeHeader from '../ChangeHeader/ChangeHeader';
 
-const Profile = ({postData, dataLinks}) => (
+const Profile = ({postData, dataLinks, addPost, newPostText, refrashNewPostText}) => (
     <main >
         <ProfileInfo 
             postData={postData}/>
@@ -15,6 +15,9 @@ const Profile = ({postData, dataLinks}) => (
                 <div className={style.posts}>
                     <MyPosts 
                         postData={postData}
+                        addPost={addPost}
+                        newPostText={newPostText}
+                        refrashNewPostText={refrashNewPostText}
                     />
                 </div>
             )}/>

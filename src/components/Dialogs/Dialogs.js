@@ -4,7 +4,20 @@ import Person from './Person/Person';
 import Message from './Message/Message';
 import ChangeHeader from '../ChangeHeader/ChangeHeader';
 
-const Dialogs = ({dialogsData, dataMessages, dataLinks}) => (
+const Dialogs = ({dialogsData, dataMessages, dataLinks, refrashNewMessageText, addMessage, newMessageText}) => {
+    let newMessageElement = React.createRef();
+
+    const refrashMessages = () => {
+        addMessage()
+        newMessageElement.current.value = '';
+    }
+
+    const onMessageChange = () => {
+        const text = newMessageElement.current.value;
+        refrashNewMessageText(text);
+    }
+
+    return(
     <>
         <ChangeHeader dataLinks={dataLinks}/>
         <div className={style.chats}>
@@ -29,8 +42,17 @@ const Dialogs = ({dialogsData, dataMessages, dataLinks}) => (
                             me={item.me}/>
                     )
                 })}
+                <div className={style.newMessage}>
+                    <textarea 
+                        className={style.textarea}
+                        placeholder={'write messages'}
+                        onChange={onMessageChange}
+                        ref={newMessageElement}
+                        value={newMessageText}/>
+                    <button className={style.button} onClick={refrashMessages}>Отправить</button>
+                </div>
             </div>
         </div>  
     </>
-)
+)}
 export default Dialogs;

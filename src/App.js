@@ -5,11 +5,9 @@ import Header from './components/Header/Header';
 import Profile from './components/Profile/Profile';
 import Navigation from './components/Navigation/Navigation';
 import {BrowserRouter, Route} from 'react-router-dom';
-
-import state from './redux/state';
 import Friends from './components/Friends/Friends';
 
-function App() {
+function App({state, addPost, refrashNewPostText, addMessage, refrashNewMessageText}) {
   return ( 
   <BrowserRouter>
     <Header/>
@@ -19,13 +17,19 @@ function App() {
         <Route path="/profile" render={
             () => (<Profile 
               postData={state.profilePage.postData}
-              dataLinks={state.settingsOfLinks.profile}/>)
+              dataLinks={state.settingsOfLinks.profile}
+              addPost={addPost}
+              newPostText={state.profilePage.newPostText}
+              refrashNewPostText={refrashNewPostText}/>)
         }/>
         <Route path="/messages" render={
             () => (<Dialogs 
               dialogsData={state.messagesPage.dialogsData} 
               dataMessages={state.messagesPage.dataMessages}
-              dataLinks={state.settingsOfLinks.masseges}/>)
+              dataLinks={state.settingsOfLinks.masseges}
+              addMessage={addMessage}
+              refrashNewMessageText={refrashNewMessageText}
+              newMessageText={state.messagesPage.newMessageText}/>)
         }/>
         <Route path="/friends" render={
             () => (<Friends 

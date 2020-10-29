@@ -22,6 +22,7 @@
     padding-top: 15px;
     margin-bottom: 10px;
     margin-left: 30px;
+    padding-bottom: 10px;
 }
 .title{
     margin: 0;
@@ -38,6 +39,9 @@
 }
 .btn{
     display: block;
-    height: 50px;
-    background-color: red;
+    height: 30px;
+    background-color:rgb(29, 69, 77);
+    margin-left: auto;
+    border-radius: 5px;
+    color: #fff;  
 }
