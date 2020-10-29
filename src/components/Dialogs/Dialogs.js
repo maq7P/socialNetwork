@@ -3,18 +3,25 @@ import style from './dialogs.module.css';
 import Person from './Person/Person';
 import Message from './Message/Message';
 import ChangeHeader from '../ChangeHeader/ChangeHeader';
+import {actionCreatorAddMessage, actionCreatorRefrashNewMessage} from '../../redux/dialogsReducer'; //utilities
 
-const Dialogs = ({dialogsData, dataMessages, dataLinks, refrashNewMessageText, addMessage, newMessageText}) => {
+const Dialogs = ({
+        dialogsData,
+        dataMessages,
+        dataLinks,
+        dispatch,
+        newMessageText
+    }) => {
     let newMessageElement = React.createRef();
 
     const refrashMessages = () => {
-        addMessage()
+        dispatch(actionCreatorAddMessage())
         newMessageElement.current.value = '';
     }
 
     const onMessageChange = () => {
         const text = newMessageElement.current.value;
-        refrashNewMessageText(text);
+        dispatch(actionCreatorRefrashNewMessage(text))
     }
 
     return(

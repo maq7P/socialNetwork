@@ -7,7 +7,7 @@ import Navigation from './components/Navigation/Navigation';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Friends from './components/Friends/Friends';
 
-function App({state, addPost, refrashNewPostText, addMessage, refrashNewMessageText}) {
+function App({state, dispatch}) {
   return ( 
   <BrowserRouter>
     <Header/>
@@ -18,18 +18,16 @@ function App({state, addPost, refrashNewPostText, addMessage, refrashNewMessageT
             () => (<Profile 
               postData={state.profilePage.postData}
               dataLinks={state.settingsOfLinks.profile}
-              addPost={addPost}
               newPostText={state.profilePage.newPostText}
-              refrashNewPostText={refrashNewPostText}/>)
+              dispatch={dispatch}/>)
         }/>
         <Route path="/messages" render={
             () => (<Dialogs 
               dialogsData={state.messagesPage.dialogsData} 
               dataMessages={state.messagesPage.dataMessages}
               dataLinks={state.settingsOfLinks.masseges}
-              addMessage={addMessage}
-              refrashNewMessageText={refrashNewMessageText}
-              newMessageText={state.messagesPage.newMessageText}/>)
+              newMessageText={state.messagesPage.newMessageText}
+              dispatch={dispatch}/>)
         }/>
         <Route path="/friends" render={
             () => (<Friends 

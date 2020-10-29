@@ -1,25 +1,27 @@
 import React from 'react';
 import Post from './Post/Post';
 import style from './myposts.module.css';
+import {actionCreatorAddPost, actionCreatorRefrashNewPost} from '../../../redux/profileReducer';
 
-const MyPosts = ({postData, addPost, newPostText, refrashNewPostText}) => {
 
-    console.log(addPost);
+const MyPosts = ({postData, newPostText, dispatch}) => {
+
     let newPostElement = React.createRef();
 
     const refrashPosts = () => {
+        const title = '';
+        const postImg = '';
         const whoName = 'noName';
         const time = 'Now';
         const whoImg = 'https://pbs.twimg.com/profile_images/1154091066611646466/k8JWQ9fd_400x400.png';
 
-        addPost('', '', whoName, whoImg, time);
-
+        dispatch(actionCreatorAddPost(title, postImg, whoName, whoImg, time));
         newPostElement.current.value = '';
     }
 
     const onPostChange = () => {
         const text = newPostElement.current.value;
-        refrashNewPostText(text);
+        dispatch(actionCreatorRefrashNewPost(text))
     }
 
     return (
