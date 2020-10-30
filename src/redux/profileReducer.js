@@ -1,7 +1,34 @@
 const ADD_POST = 'ADD-POST'
 const REFRASH_NEW_POST = 'REFRASH-NEW-POST'
+let initState = {
+    postData: [{
+            id: 1,
+            title: 'Первый',
+            text: 'Это мой первый пост',
+            like: 10,
+            comments: 2,
+            hashtags: ['#firstPost'],
+            postImg: 'https://cdn1.img.sputniknewslv.com/images/1318/02/13180226.jpg',
+            whoName: 'Max',
+            whoImg: 'https://sun9-64.userapi.com/gN79EhxURENQ4f55w6rPGIFdl0Hr_Q4X0BXS_Q/lJZxeSC7TGc.jpg',
+            time: '10 минут назад'
+        },
+        {
+            id: 2,
+            title: 'Классное',
+            text: 'Классная погодка, как вам, ребят?',
+            like: 10,
+            comments: 2,
+            hashtags: ['#firstPost', '#trr'],
+            whoName: 'Yulia',
+            whoImg: 'https://sun9-20.userapi.com/_xRHT4Cb7wdm028L5F7Ua7eTc7sFG4Coqnz40Q/Y9wkbsqGFgU.jpg',
+            time: '15 минут назад'
+        },
+    ],
+    newPostText: ''
+}
 
-const profileReducer = (state, action) => {
+const profileReducer = (state = initState, action) => {
     const addPost = (title = null, postImg = null, whoName, whoImg, time) => {
             const newObj = {
                 id: 1,

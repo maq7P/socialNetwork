@@ -31,7 +31,7 @@ function App({state, dispatch}) {
         }/>
         <Route path="/friends" render={
             () => (<Friends 
-              friendsData={state.slidebar.friends}
+              friendsData={state.sidebar.friends}
               dataLinks={state.settingsOfLinks.friends}/>)
         }/>
       </div>
