@@ -6,8 +6,9 @@ import Profile from './components/Profile/Profile';
 import Navigation from './components/Navigation/Navigation';
 import {BrowserRouter, Route} from 'react-router-dom';
 import Friends from './components/Friends/Friends';
+import DialogsContainer from "./components/Dialogs/DialogsContainer";
 
-function App({state, dispatch}) {
+function App({state, store}) {
   return ( 
   <BrowserRouter>
     <Header/>
@@ -15,19 +16,15 @@ function App({state, dispatch}) {
       <Navigation/>
       <div className = "app-wrapper-content">
         <Route path="/profile" render={
-            () => (<Profile 
-              postData={state.profilePage.postData}
-              dataLinks={state.settingsOfLinks.profile}
-              newPostText={state.profilePage.newPostText}
-              dispatch={dispatch}/>)
+            () => (<Profile
+                store={store}
+                dataLinks={state.settingsOfLinks.profile}
+            />)
         }/>
         <Route path="/messages" render={
-            () => (<Dialogs 
-              dialogsData={state.messagesPage.dialogsData} 
-              dataMessages={state.messagesPage.dataMessages}
-              dataLinks={state.settingsOfLinks.masseges}
-              newMessageText={state.messagesPage.newMessageText}
-              dispatch={dispatch}/>)
+            () => (<DialogsContainer
+                store={store}
+            />)
         }/>
         <Route path="/friends" render={
             () => (<Friends 

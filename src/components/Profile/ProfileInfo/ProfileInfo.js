@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './profileInfo.module.css';
 
-const ProfileInfo = ({postData}) => (
+const ProfileInfo = () => (
     <div>
         <div className={style.bg}>
             <img src="https://robo-hunter.com/uploads/images/16844/news/80_990_455_news_5caf3dc18cfb7.png"/>

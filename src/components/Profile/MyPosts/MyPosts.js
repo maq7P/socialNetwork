@@ -4,31 +4,25 @@ import style from './myposts.module.css';
 import {actionCreatorAddPost, actionCreatorRefrashNewPost} from '../../../redux/profileReducer';
 
 
-const MyPosts = ({postData, newPostText, dispatch}) => {
+const MyPosts = ({addPost, actionRefreshNewPost, newPostText, posts}) => {
 
     let newPostElement = React.createRef();
 
-    const refrashPosts = () => {
-        const title = '';
-        const postImg = '';
-        const whoName = 'noName';
-        const time = 'Now';
-        const whoImg = 'https://pbs.twimg.com/profile_images/1154091066611646466/k8JWQ9fd_400x400.png';
-
-        dispatch(actionCreatorAddPost(title, postImg, whoName, whoImg, time));
+    const refreshPosts = () => {
+        addPost()
         newPostElement.current.value = '';
     }
 
     const onPostChange = () => {
         const text = newPostElement.current.value;
-        dispatch(actionCreatorRefrashNewPost(text))
+        actionRefreshNewPost(text)
     }
 
     return (
     <div className={style.allSpace}>
 
         <div className={style.leftSide}>
-            {postData.map(item => (
+            {posts.map(item => (
                 <Post
                     id={item.id}
                     title={item.title}
@@ -54,7 +48,7 @@ const MyPosts = ({postData, newPostText, dispatch}) => {
                 />
                 <button 
                     className={style.btn}
-                    onClick={refrashPosts}>add post</button>
+                    onClick={refreshPosts}>add post</button>
             </div>
         </div>
 
