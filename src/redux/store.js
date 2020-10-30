@@ -142,8 +142,8 @@ let store = {
     dispatch(action) {
         this._state.profilePage = profileReducer(this._state.profilePage, action);
         this._state.messagesPage = dialogsReducer(this._state.messagesPage, action);
-        this._state.messagesPage = sidebarReducer(this._state.messagesPage, action);
-        this._state.messagesPage = linksReducer(this._state.messagesPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+        this._state.settingsOfLinks = linksReducer(this._state.settingsOfLinks, action);
 
         this._callSubscriber();
     }

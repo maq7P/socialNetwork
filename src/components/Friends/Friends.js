@@ -1,11 +1,9 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 import style from './friends.module.css';
 import ChangeHeader from '../ChangeHeader/ChangeHeader';
 
 
 const Friends = ({friendsData, dataLinks}) => {
-    console.log(dataLinks);
     return (
     <>
         <ChangeHeader dataLinks={dataLinks}/>

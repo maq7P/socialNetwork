@@ -6,15 +6,13 @@ import ChangeHeader from '../ChangeHeader/ChangeHeader';
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 const Profile = ({dataLinks, store}) => (
-    <main >
+    <main>
         <ProfileInfo/>
         <div className={style.containerProfile}>
             <ChangeHeader dataLinks={dataLinks}/>
             <Route path="/profile/posts" render={() => (
                 <div className={style.posts}>
-                    <MyPostsContainer
-                        store={store}
-                    />
+                    <MyPostsContainer store={store}/>
                 </div>
             )}/>
         </div>

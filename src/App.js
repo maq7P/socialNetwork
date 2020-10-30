@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-import Dialogs from './components/Dialogs/Dialogs';
 import Header from './components/Header/Header';
-import Profile from './components/Profile/Profile';
 import Navigation from './components/Navigation/Navigation';
 import {BrowserRouter, Route} from 'react-router-dom';
-import Friends from './components/Friends/Friends';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import ProfileContainer from "./components/Profile/ProfileContains";
+import FriendsContainer from "./components/Friends/FriendsCotainer";
 
-function App({state, store}) {
+function App({state}) {
   return ( 
   <BrowserRouter>
     <Header/>
@@ -16,20 +15,13 @@ function App({state, store}) {
       <Navigation/>
       <div className = "app-wrapper-content">
         <Route path="/profile" render={
-            () => (<Profile
-                store={store}
-                dataLinks={state.settingsOfLinks.profile}
-            />)
+            () => (<ProfileContainer/>)
         }/>
         <Route path="/messages" render={
-            () => (<DialogsContainer
-                store={store}
-            />)
+            () => (<DialogsContainer/>)
         }/>
         <Route path="/friends" render={
-            () => (<Friends 
-              friendsData={state.sidebar.friends}
-              dataLinks={state.settingsOfLinks.friends}/>)
+          () => (<FriendsContainer/>)
         }/>
       </div>
     </div>
