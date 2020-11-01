@@ -11,6 +11,8 @@ let reducers = combineReducers({
     settingsOfLinks: linksReducer,
 })
 let store = createStore(reducers)
+
+window.store = store
 export default store
 
 

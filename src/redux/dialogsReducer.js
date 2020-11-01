@@ -43,19 +43,22 @@ const dialogsReducer = (state = initState, action) => {
             me: true,
 
         }
-        state.dataMessages.push(newObj);
-        state.newMessageText = ''
+        let stateUpdated = {...state}
+        stateUpdated.dataMessages = [...state.dataMessages]
+        stateUpdated.dataMessages.push(newObj);
+        stateUpdated.newMessageText = ''
+        return stateUpdated
     }
     const refrashNewMessageText = (newText) => {
-        state.newMessageText = newText;
+        let stateUpdated = {...state}
+        stateUpdated.newMessageText = newText;
+        return stateUpdated
     }
     switch (action.type){
         case ADD_MESSAGE:
-            addMessage()
-            return state;
+            return addMessage()
         case REFRASH_NEW_MESSAGE:
-            refrashNewMessageText(action.message_text)
-            return state;
+            return refrashNewMessageText(action.message_text)
         default:
             return state       
     }

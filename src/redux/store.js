@@ -128,6 +128,7 @@ let store = {
 
 
     },
+
     get getState() {
         return this._state
     },

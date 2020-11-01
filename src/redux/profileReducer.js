@@ -30,32 +30,36 @@ let initState = {
 
 const profileReducer = (state = initState, action) => {
     const addPost = (title = null, postImg = null, whoName, whoImg, time) => {
-            const newObj = {
-                id: 1,
-                title,
-                text: state.newPostText,
-                like: 0,
-                comments: 0,
-                hashtags: ['#firstPost'],
-                postImg,
-                whoName,
-                whoImg,
-                time,
-            }
-            state.postData.push(newObj)
-            state.newPostText = ''
+        const newObj = {
+            id: 1,
+            title,
+            text: state.newPostText,
+            like: 0,
+            comments: 0,
+            hashtags: ['#firstPost'],
+            postImg,
+            whoName,
+            whoImg,
+            time,
         }
+        let stateUpdated = {...state}
+        stateUpdated.newPostText = ''
+
+        stateUpdated.postData = [...state.postData]
+        stateUpdated.postData.push(newObj)
+        return stateUpdated
+    }
     const refrashNewPostText = (newText) => {
-        state.newPostText = newText;
+        let stateUpdated = {...state}
+        stateUpdated.newPostText = newText;
+        return stateUpdated
     }
 
     switch (action.type) {
         case ADD_POST:
-            addPost(action.post_title = null, action.post_img = null, action.post_whoName, action.post_whoImg, action.post_time)
-            return state;
+            return addPost(action.post_title = null, action.post_img = null, action.post_whoName, action.post_whoImg, action.post_time)
         case REFRASH_NEW_POST:
-            refrashNewPostText(action.post_text)
-            return state;
+            return refrashNewPostText(action.post_text)
         default: 
             return state;
     }

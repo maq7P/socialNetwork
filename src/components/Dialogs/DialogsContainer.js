@@ -1,35 +1,60 @@
 import {actionCreatorAddMessage, actionCreatorRefrashNewMessage} from '../../redux/dialogsReducer';
 import React from "react";
 import Dialogs from "./Dialogs";
-import StoreContext from "../../StoreContext"; //utilities
+import {connect} from "react-redux"; //utilities
 
-const DialogsContainer = () => (
-        <StoreContext.Consumer>
-            {store => {
-                const state = store.getState();
-                const dialogsData = state.messagesPage.dialogsData;
-                const dataMessages = state.messagesPage.dataMessages;
-                const dataLinks= state.settingsOfLinks.masseges;
-                const newMessageText = state.messagesPage.newMessageText
-                const dispatch = store.dispatch;
-
-                const refrashMessages = () => {
-                    dispatch(actionCreatorAddMessage())
+let mapStateToProps = (state) => {
+        return {
+                dialogsData: state.messagesPage.dialogsData,
+                dataMessages: state.messagesPage.dataMessages,
+                dataLinks: state.settingsOfLinks.masseges,
+                newMessageText: state.messagesPage.newMessageText
+        }
+}
+let mapDispatchToProps = (dispatch) => {
+        return {
+                addMessage: () => {
+                        dispatch(actionCreatorAddMessage())
+                },
+                actionRefreshNewMessage: (body) => {
+                        dispatch(actionCreatorRefrashNewMessage(body))
                 }
 
-                const onMessageChange = (text) => {
-                    dispatch(actionCreatorRefrashNewMessage(text))
-                }
-                return (
-                    <Dialogs
-                        dialogsData={dialogsData}
-                        dataMessages={dataMessages}
-                        dataLinks={dataLinks}
-                        newMessageText={newMessageText}
-                        addMessage={refrashMessages}
-                        actionRefreshNewMessage={onMessageChange}/>
-                )
-            }}
-        </StoreContext.Consumer>
-)
+        }
+}
+const DialogsContainer = connect(mapStateToProps, mapDispatchToProps)(Dialogs)
+
 export default DialogsContainer;
+
+
+//const DialogsContainer = () => {
+        // So it was before react-redux
+
+        // return (<StoreContext.Consumer>
+        //     {store => {
+        //         const state = store.getState();
+        //         const dialogsData = state.messagesPage.dialogsData;
+        //         const dataMessages = state.messagesPage.dataMessages;
+        //         const dataLinks= state.settingsOfLinks.masseges;
+        //         const newMessageText = state.messagesPage.newMessageText
+        //         const dispatch = store.dispatch;
+        //
+        //         const refrashMessages = () => {
+        //             dispatch(actionCreatorAddMessage())
+        //         }
+        //
+        //         const onMessageChange = (body) => {
+        //             dispatch(actionCreatorRefrashNewMessage(body))
+        //         }
+        //         return (
+        //             <Dialogs
+        //                 dialogsData={dialogsData}
+        //                 dataMessages={dataMessages}
+        //                 dataLinks={dataLinks}
+        //                 newMessageText={newMessageText}
+        //                 addMessage={refrashMessages}
+        //                 actionRefreshNewMessage={onMessageChange}/>
+        //         )
+        //     }}
+        // </StoreContext.Consumer>)
+//}
