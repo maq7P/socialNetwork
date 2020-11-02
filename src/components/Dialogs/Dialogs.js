@@ -30,7 +30,8 @@ const Dialogs = ({dialogsData,
             <div className={style.persons}>
                 {dialogsData.map(item => {
                     return(
-                        <Person 
+                        <Person
+                            key={item.id}
                             id={item.id}
                             name={item.name}
                             lastText={item.lastText}
@@ -42,6 +43,7 @@ const Dialogs = ({dialogsData,
                 {dataMessages.map(item => {
                     return(
                         <Message
+                            key={item.id}
                             text={item.text}
                             time={item.time}
                             img={item.img}

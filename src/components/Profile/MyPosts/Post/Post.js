@@ -1,6 +1,7 @@
 import React from 'react';
 import Person from '../../../Person/Person';
 import style from './post.module.css';
+import IdRandom from "../../../../utilities/IdRandom";//need change this
 
 const Post = ({title, text, like, comments, hashtags, postImg, whoName, whoImg, time}) => (
     <div className={style.post}>
@@ -15,7 +16,7 @@ const Post = ({title, text, like, comments, hashtags, postImg, whoName, whoImg, 
         ''}
         <div className={style.hashtags}>
             {hashtags.map(hashtag => (
-                <span>{hashtag}</span>
+                <span key={IdRandom(7)}>{hashtag}</span>
             ))}
         </div>
 
