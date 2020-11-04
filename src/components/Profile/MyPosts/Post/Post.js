@@ -42,7 +42,7 @@ const Post = ({title, text, like, comments, hashtags, postImg, whoName, whoImg, 
             <div className={style.name}>
                 <Person 
                     name={whoName}
-                    time={time}
+                    body={time}
                     img={whoImg}
                     direction={true}/> {/* direction для того, чтобы поменять местами img и text */}
             </div>

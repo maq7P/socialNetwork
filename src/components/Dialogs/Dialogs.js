@@ -1,8 +1,9 @@
 import React from 'react';
 import style from './dialogs.module.css';
-import Person from './Person/Person';
+import Person from '../Person/Person';
 import Message from './Message/Message';
 import ChangeHeader from '../ChangeHeader/ChangeHeader';
+import {Route} from "react-router-dom";
 
 const Dialogs = ({dialogsData,
             dataMessages,
@@ -26,6 +27,7 @@ const Dialogs = ({dialogsData,
     return(
     <>
         <ChangeHeader dataLinks={dataLinks}/>
+        <Route path={dataLinks[0]}></Route>
         <div className={style.chats}>
             <div className={style.persons}>
                 {dialogsData.map(item => {
@@ -34,7 +36,7 @@ const Dialogs = ({dialogsData,
                             key={item.id}
                             id={item.id}
                             name={item.name}
-                            lastText={item.lastText}
+                            body={item.lastText}
                             img={item.img}/>
                     )
                 })}

@@ -2,6 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './navigation.module.css';
 
+const addLocation = () => {
+  console.log(123)
+}
+
 const Navigation = () => (
     <nav className={style.navigation}>
       <ul>
@@ -21,9 +25,9 @@ const Navigation = () => (
           <NavLink to="/settings" activeClassName={style.active}>Settings</NavLink>
         </li>
         <li>
-          <NavLink to="/friends" activeClassName={style.active}>My friends</NavLink>
+          <NavLink to="/friends" activeClassName={style.active} onClick={() => addLocation}>Friends</NavLink>
         </li>
       </ul>
     </nav>
-)
+);
 export default Navigation;
