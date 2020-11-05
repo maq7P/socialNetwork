@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './dialogs.module.css';
-import Person from '../Person/Person';
+import Person from '../common/Person/Person';
 import Message from './Message/Message';
-import ChangeHeader from '../ChangeHeader/ChangeHeader';
+import ChangeHeader from '../common/ChangeHeader/ChangeHeader';
 import {Route} from "react-router-dom";
 
 const Dialogs = ({dialogsData,

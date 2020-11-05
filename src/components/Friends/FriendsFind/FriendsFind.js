@@ -1,39 +1,48 @@
 import React from 'react'
 import style from './friendsFind.module.css'
-import Person from "../../Person/Person";
+import Person from "../../common/Person/Person";
 import IdRandom from "../../../utilities/IdRandom";
-import * as axios from 'axios';
+import imgUserDefualt_1 from '../../../assets/images/user-defualt.webp'
+import imgUserDefualt_2 from '../../../assets/images/user-defualt-2.png'
 
-class FriendsFind extends React.Component {
-    constructor(props) {
-        super(props)
-        if (this.props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then((response) => {
-                this.props.set_users(response.data.items)
-            })
-        }
+const FriendsFind = ({users, totalUsers, showUsers, onPageChanged, page, follow, unfollow}) => {
+    let pageCount = Math.ceil(totalUsers / showUsers);
+    pageCount = pageCount > 30 ? 30 : pageCount;
+
+    let pagination = []
+
+    for (let i = 1; i <= pageCount; i++) {
+        pagination = [...pagination, i];
     }
 
-    render() {
-        return (
-            this.props.users.map(user => (
+    return (
+        <div>
+            {pagination.map(point => (
+                <span
+                    key={IdRandom(6)}
+                    className={`${style.point} ${page === point && style.pointActive}`}
+                    onClick={() => onPageChanged(point)}
+
+                >{point}</span>
+            ))}
+            {users.map(user => (
                 <div className={style.wrapper} key={user.id + IdRandom(3)}>
                     <div>
                         <Person
                             name={user.name}
                             body={user.status}
-                            img={user.photos.small ? user.photos.small : 'https://seek-team-prod.s3.fr-par.scw.cloud/users/5f5f165654577674874172.jpg'}
+                            img={user.photos.small ? user.photos.small : imgUserDefualt_1}
                         />
                         {user.followed
                             ? <button
                                 className={`${style.button} ${style.add}`}
                                 onClick={() => {
-                                    this.props.unfollow(user.id)
+                                    unfollow(user.id)
                                 }}>follow</button>
                             : <button
                                 className={`${style.button} ${style.remove}`}
                                 onClick={() => {
-                                    this.props.follow(user.id)
+                                    follow(user.id)
                                 }}>unfollow</button>}
                     </div>
                     <div className={style.location}>
@@ -41,9 +50,11 @@ class FriendsFind extends React.Component {
                         <span className={style.locationItem}>user.location.city</span>
                     </div>
                 </div>
-            ))
-        )
-    }
+            ))}
+        </div>
+    )
 }
+
+
 
 export default FriendsFind

@@ -1,6 +1,6 @@
 import style from "./friendsAll.module.css";
 import React from "react";
-import Person from "../../Person/Person";
+import Person from "../../common/Person/Person";
 
 const FriendsAll = () => {
     return (

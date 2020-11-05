@@ -1,5 +1,5 @@
 import React from 'react';
-import ChangeHeader from '../ChangeHeader/ChangeHeader';
+import ChangeHeader from '../common/ChangeHeader/ChangeHeader';
 import { Route } from 'react-router-dom';
 import FriendsAll from "./FriendsAll/FriendsAll";
 import FriendsFindContainer from "./FriendsFind/FriendsFindContainer";

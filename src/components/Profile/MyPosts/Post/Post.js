@@ -1,5 +1,5 @@
 import React from 'react';
-import Person from '../../../Person/Person';
+import Person from '../../../common/Person/Person';
 import style from './post.module.css';
 import IdRandom from "../../../../utilities/IdRandom";//need change this
 

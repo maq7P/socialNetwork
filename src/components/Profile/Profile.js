@@ -2,7 +2,7 @@ import React from 'react'
 import ProfileInfo from './ProfileInfo/ProfileInfo'
 import style from './profile.module.css'
 import { Route } from 'react-router-dom';
-import ChangeHeader from '../ChangeHeader/ChangeHeader';
+import ChangeHeader from '../common/ChangeHeader/ChangeHeader';
 import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 const Profile = ({dataLinks, store}) => (

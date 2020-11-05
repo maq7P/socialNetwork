@@ -24,3 +24,10 @@
 .add{
     background-color: aquamarine;
 }
+.point{
+    cursor: pointer;
+}
+.pointActive{
+    font-weight: bold;
+    cursor: pointer;
+}
