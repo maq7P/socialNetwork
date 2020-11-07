@@ -1,18 +1,19 @@
 import React from 'react';
 import './App.css';
-import Header from './components/Header/Header';
-import Navigation from './components/common/Navigation/Navigation';
 import {BrowserRouter, Route} from 'react-router-dom';
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import ProfileContainer from "./components/Profile/ProfileContains";
-import FriendsContainer from "./components/Friends/FriendsCotainer";
+import NavigationContainer from "./components/common/Navigation/NavigationContainer";
+import FollowersContainer from "./components/Followers/FollowersCotainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
 
 function App({state}) {
   return ( 
   <BrowserRouter>
-    <Header/>
+    <HeaderContainer/>
+
     <div className="app-wrapper container">
-      <Navigation/>
+      <NavigationContainer/>
       <div className = "app-wrapper-content">
         <Route path="/profile" render={
             () => (<ProfileContainer/>)
@@ -20,8 +21,8 @@ function App({state}) {
         <Route path="/messages" render={
             () => (<DialogsContainer/>)
         }/>
-        <Route path="/friends" render={
-          () => (<FriendsContainer/>)
+        <Route path="/followers" render={
+          () => (<FollowersContainer/>)
         }/>
       </div>
     </div>

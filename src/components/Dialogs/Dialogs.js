@@ -26,7 +26,7 @@ const Dialogs = ({dialogsData,
 
     return(
     <>
-        <ChangeHeader dataLinks={dataLinks}/>
+        <ChangeHeader dataLinks={dataLinks} right={'FORM'}/>
         <Route path={dataLinks[0]}></Route>
         <div className={style.chats}>
             <div className={style.persons}>

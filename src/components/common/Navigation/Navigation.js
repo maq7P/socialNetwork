@@ -1,32 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import style from './navigation.module.css';
+import idRandom from '../../../utilities/IdRandom'
 
-const addLocation = () => {
-  console.log(123)
-}
 
-const Navigation = () => (
+const Navigation = (props) => (
     <nav className={style.navigation}>
       <ul>
-        <li>
-          <NavLink to="/profile" activeClassName={style.active}>Profile</NavLink>
-        </li>
-        <li>
-          <NavLink to="/messages" activeClassName={style.active}>My messages</NavLink>
-        </li>
-        <li>
-          <NavLink to="/news" activeClassName={style.active}>News</NavLink>
-        </li>
-        <li>
-          <NavLink to="/music" activeClassName={style.active}>My music</NavLink>
-        </li>
-        <li>
-          <NavLink to="/settings" activeClassName={style.active}>Settings</NavLink>
-        </li>
-        <li>
-          <NavLink to="/friends" activeClassName={style.active} onClick={() => addLocation}>Friends</NavLink>
-        </li>
+        {props.navigation.map(link => {
+          return (
+              <li key={idRandom()}>
+                <NavLink className={style.link} to={link.to} onClick={(e) => props.updateProfile(e)}>{link.name}</NavLink>
+              </li>
+          )
+        })}
       </ul>
     </nav>
 );

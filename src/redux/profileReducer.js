@@ -1,7 +1,12 @@
 const ADD_POST = 'ADD-POST'
-const REFRASH_NEW_POST = 'REFRASH-NEW-POST'
+const REFRESH_NEW_POST = 'REFRESH-NEW-POST'
+const SET_PROFILE_USER = 'SET_PROFILE_USER'
+const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER'
+const SET_DEFAULT_ID = 'SET_DEFAULT_ID'
+
 let initState = {
-    postData: [{
+    postData: [
+        {
             id: 1,
             title: 'Первый',
             text: 'Это мой первый пост',
@@ -25,7 +30,10 @@ let initState = {
             time: '15 минут назад'
         },
     ],
-    newPostText: ''
+    newPostText: '',
+    profileInfo: null,
+    defaultId: null,
+    flagLoading: false
 }
 
 const profileReducer = (state = initState, action) => {
@@ -54,12 +62,33 @@ const profileReducer = (state = initState, action) => {
             newPostText: newText
         }
     }
+    const setProfileInfo = (profileInfo) => {
+        return {
+            ...state, profileInfo
+        }
+    }
+    const togglePreloader = (flagLoading) => {
+        return {
+            ...state, flagLoading
+        }
+    }
+    const setDefaultId = (id) => {
+        return {
+            ...state, defaultId: id
+        }
+    }
 
     switch (action.type) {
         case ADD_POST:
             return addPost(action.post_title = null, action.post_img = null, action.post_whoName, action.post_whoImg, action.post_time)
-        case REFRASH_NEW_POST:
+        case REFRESH_NEW_POST:
             return refreshNewPostText(action.post_text)
+        case SET_PROFILE_USER:
+            return setProfileInfo(action.profileInfo)
+        case TOGGLE_PRELOADER:
+            return togglePreloader(action.flagLoading)
+        case SET_DEFAULT_ID:
+            return setDefaultId(action.id)
         default: 
             return state;
     }
@@ -73,7 +102,10 @@ export const actionCreatorAddPost = (post_title, post_img, post_whoName, post_wh
     post_time
 })
 export const actionCreatorRefrashNewPost = (post_text) => ({
-    type: REFRASH_NEW_POST,
+    type: REFRESH_NEW_POST,
     post_text
 })
+export const set_profile_user = (profileInfo) => ({type: SET_PROFILE_USER, profileInfo})
+export const toggle_preloader = (flagLoading) => ({type: TOGGLE_PRELOADER, flagLoading})
+export const set_default_id = (id) => ({type: SET_DEFAULT_ID, id})
 export default profileReducer

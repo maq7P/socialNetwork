@@ -2,13 +2,20 @@
   grid-area: n;
   background-color: rgb(29, 69, 77);
   padding: 20px;
+  border-right: 1px solid #fff;
 }
-li a{
+.link{
   color: #fff;
   text-decoration: none;
   opacity: 0.5;
+  transition: all 0.3s;
 }
-.active {
+.link:hover{
+  color:aquamarine;
+  opacity: 1;
+}
+.active>a{
+  color: darkred;
   opacity: 1;
   transition: 0.3s;
 }

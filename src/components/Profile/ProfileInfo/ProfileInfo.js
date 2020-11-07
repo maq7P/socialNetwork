@@ -1,29 +1,39 @@
 import React from 'react';
 import style from './profileInfo.module.css';
+import imgNoName from '../../../assets/images/user-defualt.webp';
+import bgProfile from '../../../assets/images/bgProfile.png'
 
-const ProfileInfo = () => (
-    <div>
+const ProfileInfo = (props) => {
+    return (<div>
         <div className={style.bg}>
-            <img src="https://robo-hunter.com/uploads/images/16844/news/80_990_455_news_5caf3dc18cfb7.png"/>
+            <img src={bgProfile}/>
             <div className={style.avatarBlock}>
-                <img src="https://sun9-64.userapi.com/gN79EhxURENQ4f55w6rPGIFdl0Hr_Q4X0BXS_Q/lJZxeSC7TGc.jpg"/>
+                <img src={props.profileInfo.photos.large ? props.profileInfo.photos.large : imgNoName}/>
                 <div className={style.info}>
-                    <h3>Max Pet</h3>
+                    <h3>{props.profileInfo.fullName}</h3>
                     <div className={style.detailedInfo}>
-                        <span className={style.position}>Country:</span>
+                        <span className={style.position}>Country:  </span>
                         <span className={style.argument}>Russsia</span>
                     </div>
                     <div className={style.detailedInfo}>
-                        <span className={style.position}>City:</span>
+                        <span className={style.position}>City:  </span>
                         <span className={style.argument}>Keytown</span>
                     </div>
                     <div className={style.detailedInfo}>
-                        <span className={style.position}>Age:</span>
-                        <span className={style.argument}>20</span>
+                        <span className={style.position}>Work:  </span>
+                        <span className={style.position}>
+                            {props.profileInfo.lookingForAJob ? 'Looking for a job' : ''}
+                        </span>
+                    </div>
+                    <div className={style.detailedInfo}>
+                        <span className={style.position}>Job wish:  </span>
+                        <span className={style.position}>
+                            {props.profileInfo.lookingForAJobDescription ? props.profileInfo.lookingForAJobDescription : ''}
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-)
+    </div>)
+}
 export default ProfileInfo;
