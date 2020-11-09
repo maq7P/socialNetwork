@@ -6,6 +6,7 @@ import ProfileContainer from "./components/Profile/ProfileContains";
 import NavigationContainer from "./components/common/Navigation/NavigationContainer";
 import FollowersContainer from "./components/Followers/FollowersCotainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
+import LoginPage from "./components/LoginPage/LoginPage";
 
 function App({state}) {
   return ( 
@@ -23,6 +24,9 @@ function App({state}) {
         }/>
         <Route path="/followers" render={
           () => (<FollowersContainer/>)
+        }/>
+        <Route path="/login" render={
+          () => (<LoginPage/>)
         }/>
       </div>
     </div>

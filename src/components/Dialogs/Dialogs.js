@@ -10,7 +10,8 @@ const Dialogs = ({dialogsData,
             dataLinks,
             newMessageText,
             addMessage,
-            actionRefreshNewMessage
+            actionRefreshNewMessage,
+                     isAuth
 }) => {
     let newMessageElement = React.createRef();
 
@@ -23,7 +24,6 @@ const Dialogs = ({dialogsData,
         const text = newMessageElement.current.value;
         actionRefreshNewMessage(text)
     }
-
     return(
     <>
         <ChangeHeader dataLinks={dataLinks} right={'FORM'}/>

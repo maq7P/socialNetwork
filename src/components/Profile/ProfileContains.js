@@ -1,33 +1,15 @@
 import React from 'react'
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {set_default_id, set_profile_user, toggle_preloader} from "../../redux/profileReducer";
-import {withRouter} from "react-router-dom";
+import {got_profile_user, set_default_id, set_profile_user, toggle_preloader} from "../../redux/profileReducer";
+import {withRouter, Redirect} from "react-router-dom";
 import Preloader from "../common/Preloader/Preloader";
-import {loginAPI, profileAPI} from "../../api/api";
+import {withAuthRedirect} from "../hoc/withAuthRedirect";
 
 
-class ProfileAPIContainer extends React.Component{
+class ProfileURLContainer extends React.Component{
     componentDidMount() {
-        loginAPI.getLogin().then((response) => {
-            let {id} = response.data
-            let userId = this.props.location.pathname.split('/')[3] ?
-                this.props.location.pathname.split('/')[3] : id
-
-            if(id !== userId){
-                this.props.toggle_preloader(true)
-                profileAPI.getProfile(userId)
-                    .then((data) => {
-                        this.props.toggle_preloader(false)
-                        this.props.set_profile_user(data)
-                    })
-            }else{
-                profileAPI.getProfile(userId)
-                    .then((data) => {
-                        this.props.set_profile_user(data)
-                    })
-            }
-        })
+        this.props.got_profile_user(this.props.location.pathname.split('/')[3])
     }
     render(){
         return(
@@ -45,12 +27,12 @@ let mapStateToProps = (state) => {
     return {
         dataLinks: state.settingsOfLinks.profile,
         profileInfo: state.profilePage.profileInfo,
-        flagLoading: state.profilePage.flagLoading,
-        defaultId:  state.profilePage.defaultId
+        flagLoading: state.profilePage.flagLoading
     }
 }
-const ProfileURLContainer = withRouter(ProfileAPIContainer)
 
-const ProfileContainer = connect(mapStateToProps, {set_profile_user, toggle_preloader, set_default_id})(ProfileURLContainer)
+const ProfileAuthRedirect = withAuthRedirect(withRouter(ProfileURLContainer))
+
+const ProfileContainer = connect(mapStateToProps, {set_profile_user, toggle_preloader, got_profile_user})(ProfileAuthRedirect)
 
 export default ProfileContainer;

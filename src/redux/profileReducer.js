@@ -1,3 +1,5 @@
+import {usersAPI} from "../api/api";
+
 const ADD_POST = 'ADD-POST'
 const REFRESH_NEW_POST = 'REFRESH-NEW-POST'
 const SET_PROFILE_USER = 'SET_PROFILE_USER'
@@ -93,7 +95,9 @@ const profileReducer = (state = initState, action) => {
             return state;
     }
 }
-export const actionCreatorAddPost = (post_title, post_img, post_whoName, post_whoImg, post_time) => ({
+
+//action creators
+export const add_post = (post_title, post_img, post_whoName, post_whoImg, post_time) => ({
     type: ADD_POST,
     post_title,
     post_img,
@@ -101,11 +105,26 @@ export const actionCreatorAddPost = (post_title, post_img, post_whoName, post_wh
     post_whoImg,
     post_time
 })
-export const actionCreatorRefrashNewPost = (post_text) => ({
-    type: REFRESH_NEW_POST,
-    post_text
-})
+export const update_new_post= (post_text) => ({type: REFRESH_NEW_POST, post_text})
 export const set_profile_user = (profileInfo) => ({type: SET_PROFILE_USER, profileInfo})
 export const toggle_preloader = (flagLoading) => ({type: TOGGLE_PRELOADER, flagLoading})
 export const set_default_id = (id) => ({type: SET_DEFAULT_ID, id})
+
+//thunks
+export const got_profile_user = (hrefID) => (dispatch) => {
+    usersAPI.getLogin().then((response) => {
+        let {id} = response.data
+        let userId = hrefID ?
+            hrefID : id
+
+        // if(id !== userId) dispatch(toggle_preloader(true))
+        dispatch(toggle_preloader(true))
+        usersAPI.getProfile(userId)
+            .then((data) => {
+                dispatch(toggle_preloader(false))
+                dispatch(set_profile_user(data))
+            })
+    })
+}
+
 export default profileReducer

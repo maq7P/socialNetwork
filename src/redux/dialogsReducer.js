@@ -1,5 +1,6 @@
 const ADD_MESSAGE = 'ADD-MESSAGE'
 const REFRASH_NEW_MESSAGE = 'REFRASH-NEW-MESSAGE'
+
 let initState = {
     dialogsData: [{
         id: 1,
