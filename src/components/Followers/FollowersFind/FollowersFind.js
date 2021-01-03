@@ -5,14 +5,10 @@ import IdRandom from "../../../utilities/IdRandom";
 import imgUserDefualt_1 from '../../../assets/images/user-defualt.webp'
 import imgUserDefualt_2 from '../../../assets/images/user-defualt-2.png'
 import {NavLink} from "react-router-dom";
-import * as axios from "axios";
-import {followerAPI} from "../../../api/api";
-import {toggle_btn_disabled} from "../../../redux/usersReducer";
 
 const FollowersFind = ({users, totalUsers, showUsers, onPageChanged, page, follow, unfollow, isDisabledArr}) => {
     let pageCount = Math.ceil(totalUsers / showUsers);
     pageCount = pageCount > 30 ? 30 : pageCount;
-    console.log(isDisabledArr)
     let pagination = []
 
     for (let i = 1; i <= pageCount; i++) {

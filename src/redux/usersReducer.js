@@ -1,4 +1,6 @@
-import {usersAPI} from "../api/api";
+import {
+    usersAPI
+} from "../api/api";
 
 const FOLLOW = 'FOLLOW'
 const UNFOLLOW = 'UNFOLLOW'
@@ -11,7 +13,7 @@ const TOGGLE_BTN_DISABLED = 'TOGGLE_BTN_DISABLED'
 const initState = {
     users: [],
     showUsers: 5,
-    totalUsers: Number,
+    totalUsers: null,
     page: 1,
     isDisabledArr: [],
     isPreloader: false
@@ -46,7 +48,7 @@ const usersReducer = (state = initState, action) => {
             }
         case SET_PAGE:
             return {
-                ...state, totalUsers: action.current
+                ...state, page: action.current
             }
         case SET_TOTAL_USERS:
             return {

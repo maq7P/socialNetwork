@@ -1,5 +1,4 @@
 const ADD_MESSAGE = 'ADD-MESSAGE'
-const REFRASH_NEW_MESSAGE = 'REFRASH-NEW-MESSAGE'
 
 let initState = {
     dialogsData: [{
@@ -16,12 +15,12 @@ let initState = {
         },
     ],
     dataMessages: [{
-        id: 1,
-        text: 'Hey',
-        time: '10:20',
-        img: 'https://static10.tgstat.ru/channels/_0/49/49b77c2e60267e7b1e511c1084ed596e.jpg',
-        me: false
-    },
+            id: 1,
+            text: 'Hey',
+            time: '10:20',
+            img: 'https://static10.tgstat.ru/channels/_0/49/49b77c2e60267e7b1e511c1084ed596e.jpg',
+            me: false
+        },
         {
             id: 2,
             text: 'Hey, dude!',
@@ -30,46 +29,31 @@ let initState = {
             me: true
         },
     ],
-    newMessageText: ''
 }
 
 const dialogsReducer = (state = initState, action) => {
 
-    const addMessage = () => {
+    const addMessage = (text) => {
         return {    //Create new state
             ...state,
             dataMessages: [...state.dataMessages, {
                 id: 1,
-                text: state.newMessageText,
+                text: text,
                 time: 'now',
                 img: 'https://sun9-49.userapi.com/dj9EjEZYf_dAiW3T8Dxg1HVG2CxySACD-nuPDg/UoBLmZKdaXc.jpg',
                 me: true,
 
             }],
-            newMessageText: ''
         }
-    }
-    const refreshNewMessageText = (newText) => {
-        let stateCopy = {
-            ...state,
-            newMessageText: newText
-        }
-        return stateCopy
     }
     switch (action.type) {
         case ADD_MESSAGE:
-            return addMessage()
-        case REFRASH_NEW_MESSAGE:
-            return refreshNewMessageText(action.message_text)
+            return addMessage(action.text)
         default:
             return state
     }
 }
-export const actionCreatorAddMessage = () => ({
-    type: ADD_MESSAGE
-})
-export const actionCreatorRefrashNewMessage = (message_text) => ({
-    type: REFRASH_NEW_MESSAGE,
-    message_text
+export const add_message = (text) => ({
+    type: ADD_MESSAGE, text
 })
 export default dialogsReducer

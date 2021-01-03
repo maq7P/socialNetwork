@@ -2,6 +2,7 @@ import React from 'react';
 import style from './profileInfo.module.css';
 import imgNoName from '../../../assets/images/user-defualt.webp';
 import bgProfile from '../../../assets/images/bgProfile.png'
+import Status from "./Status";
 
 const ProfileInfo = (props) => {
     return (<div>
@@ -10,7 +11,13 @@ const ProfileInfo = (props) => {
             <div className={style.avatarBlock}>
                 <img src={props.profileInfo.photos.large ? props.profileInfo.photos.large : imgNoName}/>
                 <div className={style.info}>
-                    <h3>{props.profileInfo.fullName}</h3>
+                    <div className={style.profileHeader}>
+                        <h3>{props.profileInfo.fullName}</h3>
+                        <Status 
+                            status={props.status}
+                            put_profile_status={props.put_profile_status}
+                            id={props.id} />
+                    </div>
                     <div className={style.detailedInfo}>
                         <span className={style.position}>Country:  </span>
                         <span className={style.argument}>Russsia</span>

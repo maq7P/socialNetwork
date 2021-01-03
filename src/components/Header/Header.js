@@ -1,18 +1,45 @@
 import React from 'react';
 import style from './header.module.css';
 import logo from '../../assets/images/logo.png'
-import Person from "../common/Person/Person";
 import imgUserDefault_1 from "../../assets/images/user-defualt-2.png";
-import {NavLink} from "react-router-dom";
+import {Redirect, NavLink, Link} from "react-router-dom";
 
 const Header = (props) => {
+    console.log(props);
+    if (props.isAuth) {
+        return (
+            <header className={style.header}>
+                <div className={style.container}>
+                    <img src={logo} className={style.logo}/>
+                    <div>
+                        <NavLink to={'/'} className={style.userLogin}>
+                            <div className={style.userName}>
+                                {props.login}
+                            </div>
+                            <div className={style.userImg}>
+                                <img src={props.photo  ?
+                                    props.photo :
+                                    imgUserDefault_1}/>
+                            </div>
+                        </NavLink>
+                        <button
+                            className={style.btn} 
+                            onClick={() => {
+                                props.logout()
+                            }}>Log Out
+                        </button>
+                    </div>
+                </div>
+            </header>
+        )
+    }
     return (<header className={style.header}>
         <div className={style.container}>
             <img src={logo} className={style.logo}/>
-            <NavLink to={'/login'}>
+            <NavLink to={'/'}>
                 <div className={style.userLogin}>
                     <div className={style.userName}>
-                        {props.isAuth ? props.login : 'Login'}
+                        Login
                     </div>
                     <div className={style.userImg}>
                         <img src={props.photo  ?

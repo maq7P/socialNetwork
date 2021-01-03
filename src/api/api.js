@@ -9,7 +9,23 @@ const instance = axios.create({
 
 })
 export const usersAPI = {
-    getLogin(){
+    login(email, password, rememberMe = false, captcha = false) {
+        return instance.post('/auth/login', {email, password, rememberMe, captcha})
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.data
+                }
+            })
+    },
+    logout() {
+        return instance.delete('/auth/login')
+            .then((response) => {
+                if (response.status === 200) {
+                    return response.data
+                }
+            })
+    },
+    authMe() {
         return instance.get('auth/me')
             .then((response) => {
                 if(response.status === 200) {
@@ -35,11 +51,33 @@ export const usersAPI = {
                 return response.data
             })
     },
-    getProfile(id){
+    captcha() {
+        return instance.get('security/get-captcha-url')
+            .then(response => {
+                return response.data
+            })
+    }
+}
+export const profileAPI = {
+    getProfile(id) {
         return instance.get(`profile/${id}`)
             .then(response => {
                 return response.data
             })
     },
+    getProfileStatus(id) {
+        return instance.get(`/profile/status/${id}`)
+            .then(response => {
+                if (response.status === 200){
+                    return response.data
+                }
+            })
+    },
+    putProfileStatus(status) {
+        return instance.put(`/profile/status`, {status})
+            .then(response => {
+                return response.data
+            })
+    }
 }
 
