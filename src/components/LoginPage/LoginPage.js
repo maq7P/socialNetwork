@@ -1,9 +1,9 @@
 import React from "react";
 import {Field, reduxForm} from 'redux-form'
 import {required} from "../../utilities/validators";
-import {Input} from "../common/FormsControl/FormsControl";
+import {ErrorFormAuth, Input} from "../common/FormsControl/FormsControl";
 import {connect} from "react-redux";
-import { login } from "../../redux/authReducer";
+import { login, stop_submit } from "../../redux/authReducer";
 import {Redirect} from "react-router-dom";
 /* 
     handleSubmit: 
@@ -12,7 +12,6 @@ import {Redirect} from "react-router-dom";
     3) props.onChange(data)
 */
 const LoginFrom = (props) => {
-    console.log(props.captcha, 'cap');
     return(
         <form onSubmit={props.handleSubmit}>
             <div>
@@ -24,6 +23,11 @@ const LoginFrom = (props) => {
             <div>
                 <Field component='input' type='checkbox' name='RememberMe'/>
                 remember me
+            </div>
+
+
+            <div>
+                <ErrorFormAuth errorMessage={props.err}/>
             </div>
             {
                 props.captcha 
@@ -44,7 +48,9 @@ reduxForm({
 
 const LoginPage = (props) => {
     const onSubmit = (data) => {
-        console.log(data, 'data');
+        if(props.err){
+            props.stop_submit(null)
+        }
         props.login(data.Email, data.Password, data.RememberMe, data.captcha)
     }
     if(props.isAuth){
@@ -55,13 +61,17 @@ const LoginPage = (props) => {
     return (
         <>
             <h3>LOGIN</h3>
-            <LoginReduxForm captcha={props.captcha} onSubmit={onSubmit}/>
+            <LoginReduxForm 
+                err={props.err}
+                captcha={props.captcha} 
+                onSubmit={onSubmit}/>
         </>
     )
 }
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth,
     logInName: state.auth.login,
-    captcha: state.auth.captcha
+    captcha: state.auth.captcha,
+    err: state.auth.err,
 })
-export default connect(mapStateToProps, {login})(LoginPage)
+export default connect(mapStateToProps, {login, stop_submit})(LoginPage)

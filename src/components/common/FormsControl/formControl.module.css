@@ -8,3 +8,6 @@
 .formControl.error input{
     border: 2px solid  #008B8B;
 }
+.errorData span{
+    color: red;
+}

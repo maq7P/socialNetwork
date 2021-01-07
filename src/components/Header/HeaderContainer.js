@@ -18,6 +18,11 @@ let mapStateToProps = (state) => {
     }
 }
 const HeaderContainer = 
-connect(mapStateToProps, {got_user_data, set_user_data, set_user_avatar, logout})(HeaderAPIContainer);
+connect(mapStateToProps, {
+    set_user_data,
+    set_user_avatar,
+    logout,
+    got_user_data
+})(HeaderAPIContainer);
 
 export default HeaderContainer;

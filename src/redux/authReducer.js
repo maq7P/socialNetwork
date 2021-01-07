@@ -1,8 +1,11 @@
+import { stopSubmit } from "redux-form";
 import {profileAPI, usersAPI} from "../api/api";
-
+// TASKS FOR THIS COMPONENT
+// If it is wrong password need to clear input contains password.
 const SET_USER_DATA = 'SET_USER_DATA'
 const SET_USER_AVATAR = 'SET_USER_AVATAR'
 const CAPTCH = 'CAPTCH'
+const STOP_SUBMIT = 'STOP_SUBMIT'
 
 const initState = {
     id: null,
@@ -11,7 +14,8 @@ const initState = {
     isAuth: false,
     photo: null,
     flagLoading: false, 
-    captcha: null
+    captcha: null,
+    err: null
 }
 const authReducer = (state = initState, action) => {
     switch (action.type) {
@@ -32,6 +36,13 @@ const authReducer = (state = initState, action) => {
                 ...state,
                 captcha: action.url
             }
+        case STOP_SUBMIT: {
+            console.log('Попали');
+            return {
+                ...state,
+                err: action.err
+            }
+        }
         default:
             return state
     }
@@ -39,6 +50,8 @@ const authReducer = (state = initState, action) => {
 //action creators
 export const set_user_data = (id, email, login) => ({type: SET_USER_DATA, data: {id, email, login}})
 export const set_user_avatar = (photo) => ({type: SET_USER_AVATAR, photo})
+
+export const stop_submit = (err) => ({type: STOP_SUBMIT, err})
 const set_captcha = (url) => ({type: CAPTCH, url})
 
 //thunks
@@ -58,13 +71,19 @@ export const got_user_data = (isAuth) => (dispatch) => {
 export const login = (email, password, rememberMe, captcha) => (dispatch) => {
     usersAPI.login(email, password, rememberMe, captcha).then((response) => {
         if (response.resultCode === 0) {
+            dispatch(stop_submit(null))
             dispatch(got_user_data(true))
         }
         if (response.resultCode === 10){
+            dispatch(stop_submit('Error login or password'))
             usersAPI.captcha().then((response) => {
                 dispatch(set_captcha(response.url))
-                console.log(response, 'captcha');
+                dispatch(stop_submit(null))
             })
+        }
+        if (response.resultCode === 1){
+            let message = response.messages
+            dispatch(stop_submit(message))
         }
     })
 }

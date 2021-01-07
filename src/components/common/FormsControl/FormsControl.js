@@ -20,3 +20,10 @@ export const Input =({input, meta, ...rest}) => {
         </div>
     )
 }
+export const ErrorFormAuth = (props) => {
+    return (
+        <div className={styles.errorData}>
+            <span>{props.errorMessage}</span>
+        </div>
+    )
+}
