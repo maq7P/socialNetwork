@@ -5,26 +5,17 @@ import IdRandom from "../../../utilities/IdRandom";
 import imgUserDefualt_1 from '../../../assets/images/user-defualt.webp'
 import imgUserDefualt_2 from '../../../assets/images/user-defualt-2.png'
 import {NavLink} from "react-router-dom";
+import Pagination from "../../common/Pagination/Paginaton";
 
 const FollowersFind = ({users, totalUsers, showUsers, onPageChanged, page, follow, unfollow, isDisabledArr}) => {
-    let pageCount = Math.ceil(totalUsers / showUsers);
-    pageCount = pageCount > 30 ? 30 : pageCount;
-    let pagination = []
-
-    for (let i = 1; i <= pageCount; i++) {
-        pagination = [...pagination, i];
-    }
-
     return (
         <div>
-            {pagination.map(point => (
-                <span
-                    key={IdRandom(6)}
-                    className={`${style.point} ${page === point && style.pointActive}`}
-                    onClick={() => onPageChanged(point)}
-
-                >{point}</span>
-            ))}
+            <Pagination
+                totalUsers={totalUsers}
+                showUsers={showUsers}
+                page={page}
+                onPageChanged={onPageChanged}
+            />
             {users.map(user => (
                 <div className={style.wrapper} key={user.id + IdRandom(3)}>
                     <div>

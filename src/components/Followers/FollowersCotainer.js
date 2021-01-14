@@ -13,18 +13,3 @@ let mapDispatchToProps = (dispatch) => {
 }
 const FollowersContainer = connect(mapStateToProps, mapDispatchToProps)(Followers)
 export default FollowersContainer;
-
-
-// So it was before react-redux
-
-// const FollowersContainer = () => (
-//     <StoreContext.Consumer>
-//         {store => {
-//             const friendsData = store.getState().sidebar.friends;
-//             const dataLinks = store.getState().settingsOfLinks.friends;
-//
-//             return <Followers friendsData={friendsData} dataLinks={dataLinks}/>
-//         }}
-//     </StoreContext.Consumer>
-// )
-// export default FollowersContainer;

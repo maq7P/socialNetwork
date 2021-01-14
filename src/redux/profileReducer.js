@@ -3,11 +3,11 @@ import {
     profileAPI
 } from "../api/api";
 
-const ADD_POST = 'ADD-POST'
-const SET_PROFILE_USER = 'SET_PROFILE_USER'
-const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER'
-const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
-const DEL_POST = 'DEL_POST'
+const ADD_POST = 'profile/ADD-POST'
+const SET_PROFILE_USER = 'profile/SET_PROFILE_USER'
+const TOGGLE_PRELOADER = 'profile/TOGGLE_PRELOADER'
+const SET_PROFILE_STATUS = 'profile/SET_PROFILE_STATUS'
+const DEL_POST = 'profile/DEL_POST'
 
 let initState = {
     postData: [

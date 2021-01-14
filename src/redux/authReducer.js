@@ -2,10 +2,10 @@ import { stopSubmit } from "redux-form";
 import {profileAPI, usersAPI} from "../api/api";
 // TASKS FOR THIS COMPONENT
 // If it is wrong password need to clear input contains password.
-const SET_USER_DATA = 'SET_USER_DATA'
-const SET_USER_AVATAR = 'SET_USER_AVATAR'
-const CAPTCH = 'CAPTCH'
-const STOP_SUBMIT = 'STOP_SUBMIT'
+const SET_USER_DATA = 'auth/SET_USER_DATA'
+const SET_USER_AVATAR = 'auth/SET_USER_AVATAR'
+const CAPTCH = 'auth/CAPTCH'
+const STOP_SUBMIT = 'auth/STOP_SUBMIT'
 
 const initState = {
     id: null,
@@ -55,37 +55,39 @@ export const stop_submit = (err) => ({type: STOP_SUBMIT, err})
 const set_captcha = (url) => ({type: CAPTCH, url})
 
 //thunks
-export const got_user_data = (isAuth) => (dispatch) => {
-        return usersAPI.authMe().then((response) => {
-            let {id, email, login} = response.data
-            dispatch(set_user_data(id, email, login))
-            if(isAuth){
-                profileAPI.getProfile(id)
-                    .then((data) => {
-                        dispatch(set_user_avatar(data.photos.large))
-                })
-            }
-        })
+export const got_user_data = (isAuth) => async (dispatch) => {
+    const response = await usersAPI.authMe()
+    let {id, email, login} = response.data
+    dispatch(set_user_data(id, email, login))
+    if(isAuth){
+        const dataProfile = await profileAPI.getProfile(id)
+        dispatch(set_user_avatar(dataProfile.photos.large))
+    }
+    return response
 }
+export const login = (email, password, rememberMe, captcha) => async (dispatch) => {
+    const response = await usersAPI.login(email, password, rememberMe, captcha)
+    const message = response.messages
 
-export const login = (email, password, rememberMe, captcha) => (dispatch) => {
-    usersAPI.login(email, password, rememberMe, captcha).then((response) => {
-        if (response.resultCode === 0) {
+    switch (response.resultCode){
+        case 0: {
             dispatch(stop_submit(null))
             dispatch(got_user_data(true))
+            break;
         }
-        if (response.resultCode === 10){
+        case 10: {
             dispatch(stop_submit('Error login or password'))
-            usersAPI.captcha().then((response) => {
-                dispatch(set_captcha(response.url))
-                dispatch(stop_submit(null))
-            })
+
+            const responseCaptcha = await usersAPI.captcha()
+            dispatch(set_captcha(responseCaptcha.url))
+            dispatch(stop_submit(null))
+            break;
         }
-        if (response.resultCode === 1){
-            let message = response.messages
+        case 1: {
             dispatch(stop_submit(message))
+            break;
         }
-    })
+    }
 }
 
 export const logout = () => (dispatch) => {

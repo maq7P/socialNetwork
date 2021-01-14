@@ -1,6 +1,6 @@
 import {got_user_data} from "./authReducer";
 
-const INITIALIZED = 'INITIALIZED'
+const INITIALIZED = 'app/INITIALIZED'
 
 
 const initState = {
