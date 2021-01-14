@@ -7,6 +7,7 @@ const ADD_POST = 'ADD-POST'
 const SET_PROFILE_USER = 'SET_PROFILE_USER'
 const TOGGLE_PRELOADER = 'TOGGLE_PRELOADER'
 const SET_PROFILE_STATUS = 'SET_PROFILE_STATUS'
+const DEL_POST = 'DEL_POST'
 
 let initState = {
     postData: [
@@ -79,7 +80,12 @@ const profileReducer = (state = initState, action) => {
             return togglePreloader(action.flagLoading)
         case SET_PROFILE_STATUS:
             return setProfileStatus(action.status)
-        default: 
+        case DEL_POST:
+            return {
+                ...state,
+                postData: state.postData.filter(item => item.id != action.id)
+            }
+        default:
             return state;
     }
 }
@@ -106,6 +112,7 @@ export const add_post = (   post_title,
 export const set_profile_user = (profileInfo) => ({type: SET_PROFILE_USER, profileInfo})
 export const toggle_preloader = (flagLoading) => ({type: TOGGLE_PRELOADER, flagLoading})
 export const set_profile_status = (status) => ({type: SET_PROFILE_STATUS, status})
+export const del_post = (id) => ({type: DEL_POST, id})
 
 //thunks
 export const got_profile_user = (hrefID) => (dispatch) => {

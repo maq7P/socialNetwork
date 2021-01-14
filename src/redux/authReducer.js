@@ -56,7 +56,7 @@ const set_captcha = (url) => ({type: CAPTCH, url})
 
 //thunks
 export const got_user_data = (isAuth) => (dispatch) => {
-        usersAPI.authMe().then((response) => {
+        return usersAPI.authMe().then((response) => {
             let {id, email, login} = response.data
             dispatch(set_user_data(id, email, login))
             if(isAuth){

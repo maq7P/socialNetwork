@@ -17,9 +17,8 @@ import {compose} from "redux";
 class ProfileURLContainer extends React.Component{
     componentDidMount() {
         const id = this.props.location.pathname.split('/')[3];
-
+        console.log(this.props.location.pathname);
         this.props.got_profile_user(id)
-        // this.props.got_profile_status(id)
         
     }
     render(){

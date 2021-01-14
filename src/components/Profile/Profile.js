@@ -8,7 +8,7 @@ import Preloader from "../common/Preloader/Preloader";
 import Overview from "./Overview/Overview";
 
 const Profile = (props) => {
-
+    console.log('RENDER PROFILE')
     if(!props.profileInfo){
         return <Preloader/>
     }

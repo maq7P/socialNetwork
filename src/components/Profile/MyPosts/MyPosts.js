@@ -33,7 +33,7 @@ const MyPosts = ({add_post, posts}) => {
                     comments={item.comments}
                     hashtags={item.hashtags}
                     time={item.time}
-                    whoImg={item.whoImg} 
+                    whoImg={item.whoImg}
                     whoName={item.whoName}
                     postImg={item.postImg}/>
             ))}
@@ -41,18 +41,6 @@ const MyPosts = ({add_post, posts}) => {
 
         <div className={style.rightSide}>
             <ReduxFormPost onSubmit={newPost}/>
-            {/* <from className={style.creatPost}>
-                <textarea
-                    className={style.textarea}
-                    placeholder="What's new with you?"
-                    value={newPostText}
-                    onChange={onPostChange}
-                    ref={newPostElement}
-                />
-                <button 
-                    className={style.btn}
-                    onClick={refreshPosts}>add post</button>
-            </from> */}
         </div>
 
     </div>

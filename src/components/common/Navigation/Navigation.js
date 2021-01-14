@@ -10,7 +10,11 @@ const Navigation = (props) => (
         {props.navigation.map(link => {
           return (
               <li key={idRandom()}>
-                <NavLink className={style.link} to={link.to} onClick={(e) => props.updateProfile(e)}>{link.name}</NavLink>
+                <NavLink 
+                  className={style.link} 
+                  to={link.to} 
+                  onClick={(e) => props.updateProfile(e)}
+                  >{link.name}</NavLink>
               </li>
           )
         })}
