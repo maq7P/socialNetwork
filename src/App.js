@@ -1,19 +1,20 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import './App.css';
 import {BrowserRouter, Route} from 'react-router-dom';
-import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import ProfileContainer from "./components/Profile/ProfileContains";
-import NavigationContainer from "./components/common/Navigation/NavigationContainer";
-import FollowersContainer from "./components/Followers/FollowersCotainer";
-import HeaderContainer from "./components/Header/HeaderContainer";
-import LoginPage from "./components/LoginPage/LoginPage";
-import {got_user_data, logout, set_user_data} from "./redux/authReducer";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initialize_app} from "./redux/appReducer";
 import Preloader from "./components/common/Preloader/Preloader";
+import store from "./redux/redux-store.js";
 
-class App extends React.Component {
+import NavigationContainer from "./components/common/Navigation/NavigationContainer";
+import HeaderContainer from "./components/Header/HeaderContainer";
+const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContains'));
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const LoginPage = React.lazy(() => import('./components/LoginPage/LoginPage'));
+const FollowersContainer = React.lazy(() => import('./components/Followers/FollowersCotainer'));
+
+export class App extends React.Component {
   componentDidMount() {
       this.props.initialize_app(this.props.isAuth)
   }
@@ -21,41 +22,65 @@ class App extends React.Component {
     if(!this.props.initialized){
       return <Preloader/>
     }
-    return (
-        <BrowserRouter>
+    return(
+      <>
           <HeaderContainer/>
 
           <div className="app-wrapper container">
             <NavigationContainer/>
             <div className="app-wrapper-content">
               <Route path="/profile" render={
-                () => (<ProfileContainer/>)
+                () => (
+                    <Suspense fallback={<Preloader />}>
+                        <ProfileContainer/>
+                    </Suspense>
+                    )
               }/>
               <Route path="/messages" render={
-                () => (<DialogsContainer/>)
+                () => (
+                    <Suspense fallback={<Preloader />}>
+                        <DialogsContainer/>
+                    </Suspense>
+                    )
               }/>
               <Route path="/followers" render={
-                () => (<FollowersContainer/>)
+                () => (
+                    <Suspense fallback={<Preloader />}>
+                        <FollowersContainer/>
+                    </Suspense>
+                    )
               }/>
               <Route path="/login" render={
-                () => (<LoginPage/>)
+                () => (
+                    <Suspense fallback={<Preloader />}>
+                        <LoginPage/>
+                    </Suspense>
+                    )
               }/>
             </div>
           </div>
-        </BrowserRouter>
+    </>
     );
   }
 }
 
-// export default App;
 let mapStateToProps = (state) => {
   return {
     isAuth: state.auth.isAuth,
     initialized: state.app.initialized
   }
 }
-export default compose(
+const AppContainer =  compose(
     connect(mapStateToProps, {
         initialize_app,
   }),
 )(App);
+export const AppInit = () => {
+    return (
+        <BrowserRouter>
+            <Provider store={store}>
+                <AppContainer/>
+            </Provider>
+        </BrowserRouter>
+    )
+}

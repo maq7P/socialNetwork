@@ -11,8 +11,8 @@ const FollowersFind = ({users, totalUsers, showUsers, onPageChanged, page, follo
     return (
         <div>
             <Pagination
-                totalUsers={totalUsers}
-                showUsers={showUsers}
+                totalItems={totalUsers}
+                showItems={showUsers}
                 page={page}
                 onPageChanged={onPageChanged}
             />

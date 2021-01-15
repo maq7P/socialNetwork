@@ -12,7 +12,7 @@ const TOGGLE_BTN_DISABLED = 'user/TOGGLE_BTN_DISABLED'
 
 const initState = {
     users: [],
-    showUsers: 5,
+    showUsers: 10,
     totalUsers: null,
     page: 1,
     isDisabledArr: [],
