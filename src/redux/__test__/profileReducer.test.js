@@ -1,4 +1,4 @@
-import profileReducer, {add_post, del_post} from "./profileReducer";
+import profileReducer, {add_post, del_post} from "../profileReducer";
 import React from "react";
 let initStateTest = {
     postData: [

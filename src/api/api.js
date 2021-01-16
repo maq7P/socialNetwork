@@ -78,6 +78,16 @@ export const profileAPI = {
             .then(response => {
                 return response.data
             })
+    },
+    updatePhoto(file){
+        const formData = new FormData()
+        formData.append('image', file)
+        return instance.put(`/profile/photo`, formData)
+            .then(response => {
+                if(response.status === 200){
+                    return response.data
+                }
+            })
     }
 }
 

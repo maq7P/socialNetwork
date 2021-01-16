@@ -1,6 +1,6 @@
 import React, {Suspense} from 'react';
 import './App.css';
-import {BrowserRouter, Route} from 'react-router-dom';
+import {BrowserRouter, HashRouter, Route} from 'react-router-dom';
 import {connect, Provider} from "react-redux";
 import {compose} from "redux";
 import {initialize_app} from "./redux/appReducer";
@@ -9,7 +9,7 @@ import store from "./redux/redux-store.js";
 
 import NavigationContainer from "./components/common/Navigation/NavigationContainer";
 import HeaderContainer from "./components/Header/HeaderContainer";
-const ProfileContainer = React.lazy(() => import('./components/Profile/ProfileContains'));
+import ProfileContains from './components/Profile/ProfileContains'
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
 const LoginPage = React.lazy(() => import('./components/LoginPage/LoginPage'));
 const FollowersContainer = React.lazy(() => import('./components/Followers/FollowersCotainer'));
@@ -31,9 +31,7 @@ export class App extends React.Component {
             <div className="app-wrapper-content">
               <Route path="/profile" render={
                 () => (
-                    <Suspense fallback={<Preloader />}>
-                        <ProfileContainer/>
-                    </Suspense>
+                        <ProfileContains/>
                     )
               }/>
               <Route path="/messages" render={
@@ -77,10 +75,10 @@ const AppContainer =  compose(
 )(App);
 export const AppInit = () => {
     return (
-        <BrowserRouter>
+        <HashRouter>
             <Provider store={store}>
                 <AppContainer/>
             </Provider>
-        </BrowserRouter>
+        </HashRouter>
     )
 }

@@ -13,7 +13,7 @@ const Navigation = (props) => (
                 <NavLink 
                   className={style.link} 
                   to={link.to} 
-                  onClick={(e) => props.updateProfile(e)}
+                  //onClick={(e) => props.updateProfile(e)}
                   >{link.name}</NavLink>
               </li>
           )

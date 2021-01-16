@@ -8,7 +8,6 @@ import Preloader from "../common/Preloader/Preloader";
 import Overview from "./Overview/Overview";
 
 const Profile = (props) => {
-    console.log('RENDER PROFILE')
     if(!props.profileInfo){
         return <Preloader/>
     }
@@ -18,7 +17,11 @@ const Profile = (props) => {
             profileInfo={props.profileInfo}
             status={props.status}
             put_profile_status={props.put_profile_status}
-            id={props.id} />
+            id={props.id}
+            set_photo={props.set_photo}
+            error={props.error}
+            loadingPhoto={props.loadingPhoto}
+        />
         <div className={style.containerProfile}>
             <ChangeHeader dataLinks={props.dataLinks}/>
             <Route path="/profile/posts" render={() => (

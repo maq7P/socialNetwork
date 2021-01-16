@@ -3,19 +3,20 @@ import Navigation from "./Navigation";
 import {connect} from "react-redux";
 import {got_profile_user} from "../../../redux/profileReducer";
 class NavigationURLContainer extends React.Component{
-    updateProfile = (e) => {
+    /*updateProfile = (e) => {
         if (!this.props.isAuth) {
             return
         }
         if (this.props.isAuth && e.target.textContent === 'My profile') {
             this.props.got_profile_user(false)
         }
-    }
+    }*/
     render(){
         return (
                 <Navigation
                     {...this.props}
-                    updateProfile={this.updateProfile}/>
+                    //updateProfile={this.updateProfile}
+                />
             )
     }
 }

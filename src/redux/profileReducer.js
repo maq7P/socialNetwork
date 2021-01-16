@@ -2,12 +2,16 @@ import {
     usersAPI,
     profileAPI
 } from "../api/api";
+import {login} from "./authReducer";
 
 const ADD_POST = 'profile/ADD-POST'
 const SET_PROFILE_USER = 'profile/SET_PROFILE_USER'
 const TOGGLE_PRELOADER = 'profile/TOGGLE_PRELOADER'
 const SET_PROFILE_STATUS = 'profile/SET_PROFILE_STATUS'
 const DEL_POST = 'profile/DEL_POST'
+const SAVE_PHOTO_SUCCESS = 'profile/SAVE_PHOTO_SUCCESS'
+const SET_ERROR = 'profile/SET_ERROR'
+const LOADING_FOR_PHOTO = 'profile/LOADING_FOR_PHOTO'
 
 let initState = {
     postData: [
@@ -37,7 +41,9 @@ let initState = {
     ],
     profileInfo: null,
     status: '',
-    flagLoading: false
+    flagLoading: false,
+    errorMessage: null,
+    loadingPhoto: false
 }
 
 const profileReducer = (state = initState, action) => {
@@ -85,34 +91,39 @@ const profileReducer = (state = initState, action) => {
                 ...state,
                 postData: state.postData.filter(item => item.id != action.id)
             }
+        case SAVE_PHOTO_SUCCESS:{
+            console.log(action.photos, 'reducer')
+            return {
+                ...state,
+                profileInfo: {...state.profileInfo, photos: action.photos}
+            }}
+        case SET_ERROR: {
+            return {
+                ...state,
+                errorMessage: action.error
+            }
+        }
+        case LOADING_FOR_PHOTO: {
+            return {
+                ...state,
+                loadingPhoto: action.flagLoading
+            }
+        }
         default:
             return state;
     }
 }
 
 //action creators
-export const add_post = (   post_title, 
-                            post_img, 
-                            post_whoName, 
-                            post_whoImg, 
-                            post_time, 
-                            post_text) =>  (
-                                
-                            {
-                                type: ADD_POST,
-                                post_title,
-                                post_img,
-                                post_whoName,
-                                post_whoImg,
-                                post_time,
-                                post_text
-                            }
-                        )
-
+export const add_post = (post_title, post_img, post_whoName, post_whoImg, post_time, post_text) =>
+    ({type: ADD_POST, post_title, post_img, post_whoName, post_whoImg, post_time, post_text})
 export const set_profile_user = (profileInfo) => ({type: SET_PROFILE_USER, profileInfo})
 export const toggle_preloader = (flagLoading) => ({type: TOGGLE_PRELOADER, flagLoading})
 export const set_profile_status = (status) => ({type: SET_PROFILE_STATUS, status})
 export const del_post = (id) => ({type: DEL_POST, id})
+export const save_photo_success = (photos) => ({type: SAVE_PHOTO_SUCCESS, photos})
+export const set_error = (error) => ({type: SET_ERROR, error})
+export const loading_for_photo = (flagLoading) => ({type: LOADING_FOR_PHOTO, flagLoading})
 
 //thunks
 export const got_profile_user = (hrefID) => (dispatch) => {
@@ -120,7 +131,6 @@ export const got_profile_user = (hrefID) => (dispatch) => {
         let {id} = response.data
         let userId = hrefID ? hrefID : id
 
-        // if(id !== userId) dispatch(toggle_preloader(true))
         dispatch(toggle_preloader(true))
         profileAPI.getProfile(userId)
             .then((data) => {
@@ -149,6 +159,23 @@ export const put_profile_status = (status) => (dispatch) => {
         profileAPI.putProfileStatus(status)
             .then((data) => {
                 if(data.resultCode === 0) dispatch(set_profile_status(status))
+            })
+}
+export const set_photo = (photo) => (dispatch) => {
+    console.log('working')
+    dispatch(set_error(null))
+    dispatch(loading_for_photo(true))
+        profileAPI.updatePhoto(photo)
+            .then((response) => {
+                console.log('response m', response.messages)
+                if(response.messages.length != 0){
+                    dispatch(loading_for_photo(false))
+                    dispatch(set_error(response.messages[0]))
+                } else {
+                    console.log('Попали в ред')
+                    dispatch(loading_for_photo(false))
+                    dispatch(save_photo_success(response.data.photos))
+                }
             })
 }
 
